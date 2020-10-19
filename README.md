@@ -5,14 +5,21 @@
 
 ## Description
 
-A multiplayer setup with a unity client and a .Net Core server.
-The client will support
+🚧 *Early in development* 🚧
 
+A multiplayer setup with a unity client and a .Net Core server.
+The client supports
+
+- [x] Windows
 - [ ] Android
 - [ ] iOS
 
 ### Libraries
 
-* ENet 2.4.3
+* [ENet-CSharp 2.4.3](https://github.com/nxrighthere/ENet-CSharp)
 * Unity 2020.1.9f1
 * .Net Core 3.1
+
+## License
+
+[MIT](./LICENSE)
