@@ -5,8 +5,6 @@
 
 ## Description
 
-🚧 *Early in development* 🚧
-
 A multiplayer setup with a unity client and a .Net Core server.
 The client supports
 
@@ -19,6 +17,22 @@ The client supports
 * [ENet-CSharp 2.4.3](https://github.com/nxrighthere/ENet-CSharp)
 * Unity 2020.1.9f1
 * .Net Core 3.1
+
+### Building ENet Libraries
+
+#### Android
+
+1. Download NDK (Or search for the version you use inside unity)
+2. Add the build folder inside to your path environment variables e.g `C:\Data\SDKs\android-ndk-r19c\build`
+3. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
+4. Navigate to `ENet-CSharp\Source\Native`
+5. Run `ndk-build` in that location.
+6. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project.
+7. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
+
+#### iOS
+
+Coming soon
 
 ## License
 
