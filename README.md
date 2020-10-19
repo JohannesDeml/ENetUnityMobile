@@ -11,7 +11,7 @@ A multiplayer setup with a unity client and a .Net Core server.
 The client supports
 
 - [x] Windows
-- [ ] Android
+- [x] Android
 - [ ] iOS
 
 ### Libraries
