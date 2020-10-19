@@ -50,14 +50,13 @@ namespace NetCoreServer
 			ENet.Library.Initialize();
 			_address = new Address();
 			_host = new Host();
+			_host.Create();
 			IsDisposed = false;
 		}
 
 		public void Connect(string address, int port)
 		{
 			IsRunning = true;
-			Debug.Log($"Connecting to host {_host.NativeData}");
-			_host.Create();
 			_address.SetHost(address);
 			_address.Port = (ushort)port;
 			_peer = _host.Connect(_address, 4);
