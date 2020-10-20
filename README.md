@@ -3,9 +3,11 @@
 *Bootstrap setup for a client server architecture*  
 [![Unity 2020.1](https://img.shields.io/badge/unity-2020.1-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
 
+![Live Preview](./Docs/live-preview.gif)
+
 ## Description
 
-A multiplayer setup with a unity client and a .Net Core server.
+A multiplayer setup with a unity client and a .Net Core server. The application is a very simple chat server, that shows how the clients can communicate with the server and vice versa. Other than being a small tech demo, the repo explains how to compile ENet for android and iOS and provides built libraries for those platforms to kickstart your project.
 
 | Client platform support | 32 Bit | 64 bit |
 | ----------------------- | :----: | :----: |
