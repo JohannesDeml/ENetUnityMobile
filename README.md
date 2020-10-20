@@ -20,19 +20,27 @@ The client supports
 
 ### Building ENet Libraries
 
+The libraries for android and iOS are already built for this repo, you can find them [here](../../ENetClient/Assets/ENet/Plugins/).
+If you want to build them yourself (or for a newer ENet version), take a look at the instructions below.
+
 #### Android
 
 1. Download NDK (Or search for the version you use inside unity)
-2. Add the build folder inside to your path environment variables e.g `C:\Data\SDKs\android-ndk-r19c\build`
+2. Add the build folder inside to your path environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
 3. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
-4. Navigate to `ENet-CSharp\Source\Native`
+4. Navigate to `ENet-CSharp/Source/Native`
 5. Run `ndk-build` in that location.
-6. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project.
+6. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
 7. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
 
 #### iOS
 
-Coming soon
+1. Install XCode
+2. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
+3. Navigate to `ENet-CSharp/Source/Native`
+4. Run `sh build-ios.sh`
+5. Copy `libenet.a` to your unity project to `Assets/Enet/Plugins/iOS/libenet.a`
+6. Set `libenet.a` to iOS only with CPU ARM64
 
 ## License
 
