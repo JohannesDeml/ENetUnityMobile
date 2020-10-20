@@ -25,7 +25,25 @@ The server application is built with .Net Core and therefore will run on Windows
 * Unity 2020.1.9f1
 * .Net Core 3.1
 
-### Building ENet Libraries
+## Run Project
+
+### Server
+
+![Commandline Server](./Docs/cmd-server.png)
+
+Get the appropriate build from the [release section](../../releases) and run it via command line. Alternatively you can also open the ENetServer Solution with the IDE of your choice and run it.
+
+The server listens to Port 3333 and can be aborted by pressing any key.
+
+### Client
+
+![Commandline Server](./Docs/unity-client.png)
+
+Either get the build for Android or Windows from the [release section](../../releases) or open the project in Unity and run it (Make sure you started the server). Find out the ip of your server (127.0.0.1 if it is on the same machine), and click connect.
+
+When connected successfully, you can enter messages in the box next to the send button. The messages will be broadcasted to all other clients that are online at that time.
+
+## Build Libraries
 
 The libraries for android and iOS are already built for this repo, you can find them [here](../../tree/master/ENetClient/Assets/ENet/Plugins).  
 If you want to build them yourself (or for a newer ENet version), take a look at the instructions below.
