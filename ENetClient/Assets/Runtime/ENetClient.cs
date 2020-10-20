@@ -13,11 +13,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ENet;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Event = UnityEngine.Event;
 using EventType = UnityEngine.EventType;
 
@@ -34,18 +36,25 @@ namespace NetCoreServer
 		private Host _host;
 		private Address _address;
 		private Peer _peer;
-		private int _messageLoad = 10;
 		private int _tickRateClient = 60;
 		private BenchmarkData _benchmarkData;
+		private byte[] _buffer;
+		private Queue<(int, int)> _bufferPointer;
 
 		public bool IsRunning;
 		public bool IsConnected => _peer.State == PeerState.Connected;
 		public Address Address => _address;
+		public byte[] Buffer => _buffer;
+		public Queue<(int, int)> BufferPointer => _bufferPointer;
+
 		public bool IsDisposed { get; private set; }
 		private Task _listenTask;
 		
 		public ENetClient(BenchmarkData benchmarkData)
 		{
+			_buffer = new byte[2000];
+			_bufferPointer = new Queue<(int, int)>();
+			
 			_benchmarkData = benchmarkData;
 			ENet.Library.Initialize();
 			_address = new Address();
@@ -67,10 +76,7 @@ namespace NetCoreServer
 
 		public void Send(byte[] message)
 		{
-			for (int i = 0; i < _messageLoad; i++)
-			{
-				SendUnreliable(message, 0, _peer);
-			}
+			SendUnreliable(message, 0, _peer);
 		}
 
 		public void Disconnect()
@@ -107,8 +113,17 @@ namespace NetCoreServer
 
 					case ENet.EventType.Receive:
 						Interlocked.Increment(ref _benchmarkData.MessagesClientReceived);
-						Debug.Log("Client received message!");
+						Debug.Log($"Client received message with length {netEvent.Packet.Length}!");
 
+						var startIndex = 0;
+						var length = netEvent.Packet.Length;
+						if (_bufferPointer.Count > 0)
+						{
+							startIndex = _bufferPointer.Peek().Item1;
+						}
+						Marshal.Copy(netEvent.Packet.Data, _buffer, startIndex, length);
+						_bufferPointer.Enqueue((startIndex, length));
+						
 						netEvent.Packet.Dispose();
 
 						break;

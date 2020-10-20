@@ -68,22 +68,24 @@ namespace Supyrb
 		{
 			_client.Disconnect();	
 		}
-
-		private int _lastReceivedMessages = 0;
+		
 		private void Update()
 		{
 			ui.UpdateState(_client);
 			bool connected = _client != null && _client.IsConnected;
 
-			if (!connected || _benchmarkData.MessagesClientReceived == _lastReceivedMessages)
+			if (!connected || _client.BufferPointer.Count == 0)
 			{
 				return;
 			}
 
-			string messages = $"Messages received at frame {Time.frameCount}: {_benchmarkData.MessagesClientReceived}\n";
-			_lastReceivedMessages = _benchmarkData.MessagesClientReceived;
+			while (_client.BufferPointer.Count > 0)
+			{
+				(int start, int length) = _client.BufferPointer.Dequeue();
 
-			ui.AddResponseText(messages);
+				var message = Encoding.UTF8.GetString(_client.Buffer, start, length);
+				ui.AddResponseText(message);
+			}
 		}
 		
 

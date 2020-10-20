@@ -95,7 +95,7 @@ namespace Supyrb
 
 		public void AddResponseText(string messages)
 		{
-			serverResponseText.text = messages + serverResponseText.text;
+			serverResponseText.text = $"{messages}\n{serverResponseText.text}";
 		}
 	}
 }

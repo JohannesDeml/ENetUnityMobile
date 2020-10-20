@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
 using ENet;
 
 namespace ENetServer
@@ -6,12 +8,14 @@ namespace ENetServer
     class Program
     {
         private static Host _server;
+        private static byte[] _buffer;
         
         static void Main(string[] args)
         {
             ENet.Library.Initialize();
             
             _server = new Host();
+            _buffer = new byte[500];
             Address address = new Address();
             address.Port = 3333;
             int maxClients = 4000;
@@ -54,15 +58,34 @@ namespace ENetServer
 
                         case EventType.Receive:
                             Console.WriteLine("Packet received from - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP + ", Channel ID: " + netEvent.ChannelID + ", Data length: " + netEvent.Packet.Length);
+                            var packet = CreateMessagePacket(netEvent);
+
                             netEvent.Packet.Dispose();
+                            BroadcastMessage(packet);
                             break;
                     }
                 }
 
                 _server.Flush();
             }
-            
+
             ENet.Library.Deinitialize();
+        }
+
+        private static Packet CreateMessagePacket(Event netEvent)
+        {
+            var pointer = Encoding.UTF8.GetBytes(netEvent.Peer.IP + ": ", _buffer);
+            Marshal.Copy(netEvent.Packet.Data, _buffer, pointer, netEvent.Packet.Length);
+            pointer += netEvent.Packet.Length;
+            
+            var packet = default(Packet);
+            packet.Create(_buffer, pointer);
+            return packet;
+        }
+        
+        private static void BroadcastMessage(Packet packet)
+        {
+            _server.Broadcast(0, ref packet);
         }
     }
 }

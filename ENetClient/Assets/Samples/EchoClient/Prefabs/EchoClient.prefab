@@ -46,10 +46,4 @@ MonoBehaviour:
   ui: {fileID: 0}
   serverIp: 127.0.0.1
   serverPort: 3333
-  repeatMessage: 9
-  sendAsync: 1
-  type: 1
-  sslCertificateAsset: {fileID: 11400000, guid: 63297dea30963de459d4bb66504a4cdd,
-    type: 2}
-  reconnect: 1
-  reconnectionDelay: 1
+  repeatMessage: 0
