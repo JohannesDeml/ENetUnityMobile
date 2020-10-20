@@ -6,11 +6,16 @@
 ## Description
 
 A multiplayer setup with a unity client and a .Net Core server.
-The client supports
 
-- [x] Windows
-- [x] Android
-- [ ] iOS
+| Client platform support | 32 Bit | 64 bit |
+| ----------------------- | :----: | :----: |
+| Android                 |   ✔️    |   ✔️    |
+| iOS                     |   ➖    |   ✔️    |
+| Windows                 |   ❌    |   ✔️    |
+| Mac                     |   ❌    |   ✔️    |
+| Linux                   |   ❌    |   ✔️    |
+
+The server application is built with .Net Core and therefore will run on Windows, Mac or Linux.
 
 ### Libraries
 
