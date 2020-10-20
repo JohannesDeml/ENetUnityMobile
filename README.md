@@ -20,7 +20,7 @@ The client supports
 
 ### Building ENet Libraries
 
-The libraries for android and iOS are already built for this repo, you can find them [here](../../ENetClient/Assets/ENet/Plugins/).
+The libraries for android and iOS are already built for this repo, you can find them [here](../../tree/master/ENetClient/Assets/ENet/Plugins).  
 If you want to build them yourself (or for a newer ENet version), take a look at the instructions below.
 
 #### Android
