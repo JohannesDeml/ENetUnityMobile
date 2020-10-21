@@ -8,54 +8,57 @@
 // </author>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using ENet;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Event = UnityEngine.Event;
-using EventType = UnityEngine.EventType;
 
 namespace NetCoreServer
 {
-	public class BenchmarkData
-	{
-		public int MessagesClientReceived;
-		public int MessagesClientSent;
-	}
-	
 	public class ENetClient
 	{
-		private Host _host;
-		private Address _address;
-		private Peer _peer;
-		private int _tickRateClient = 60;
-		private BenchmarkData _benchmarkData;
-		private byte[] _buffer;
-		private Queue<(int, int)> _bufferPointer;
-
+		/// <summary>
+		/// Tells whether the client is running and listening for net events
+		/// </summary>
 		public bool IsRunning;
+
 		public bool IsConnected => _peer.State == PeerState.Connected;
+
+		/// <summary>
+		/// Address used to connect to the server
+		/// </summary>
 		public Address Address => _address;
+
+		/// <summary>
+		/// Buffer for all received messages
+		/// </summary>
 		public byte[] Buffer => _buffer;
+
+		/// <summary>
+		/// Pointers on the buffer for the received messages.
+		/// Dequeue them regularly and completely to make space for the next messages
+		/// </summary>
 		public Queue<(int, int)> BufferPointer => _bufferPointer;
 
+		/// <summary>
+		/// True if the instance is disposed
+		/// </summary>
 		public bool IsDisposed { get; private set; }
+
+		private readonly Host _host;
+		private Address _address;
+		private Peer _peer;
+		private readonly byte[] _buffer;
+		private readonly Queue<(int Start, int Length)> _bufferPointer;
 		private Task _listenTask;
-		
-		public ENetClient(BenchmarkData benchmarkData)
+		private int _tickRateClient = 60;
+
+		public ENetClient()
 		{
 			_buffer = new byte[2000];
 			_bufferPointer = new Queue<(int, int)>();
-			
-			_benchmarkData = benchmarkData;
+
 			ENet.Library.Initialize();
 			_address = new Address();
 			_host = new Host();
@@ -67,7 +70,7 @@ namespace NetCoreServer
 		{
 			IsRunning = true;
 			_address.SetHost(address);
-			_address.Port = (ushort)port;
+			_address.Port = (ushort) port;
 			_peer = _host.Connect(_address, 4);
 
 			_listenTask = Task.Factory.StartNew(Listen, TaskCreationOptions.LongRunning);
@@ -91,6 +94,7 @@ namespace NetCoreServer
 			{
 				await Task.Delay(10);
 			}
+
 			_listenTask.Dispose();
 			_host.Flush();
 			_host.Dispose();
@@ -100,10 +104,12 @@ namespace NetCoreServer
 
 		private void Listen()
 		{
-			while (IsRunning) {
+			while (IsRunning)
+			{
 				_host.Service(1000 / _tickRateClient, out ENet.Event netEvent);
 
-				switch (netEvent.Type) {
+				switch (netEvent.Type)
+				{
 					case ENet.EventType.None:
 						break;
 
@@ -112,18 +118,16 @@ namespace NetCoreServer
 						break;
 
 					case ENet.EventType.Receive:
-						Interlocked.Increment(ref _benchmarkData.MessagesClientReceived);
-						Debug.Log($"Client received message with length {netEvent.Packet.Length}!");
-
 						var startIndex = 0;
 						var length = netEvent.Packet.Length;
 						if (_bufferPointer.Count > 0)
 						{
-							startIndex = _bufferPointer.Peek().Item1;
+							startIndex = _bufferPointer.Peek().Start;
 						}
+
 						Marshal.Copy(netEvent.Packet.Data, _buffer, startIndex, length);
 						_bufferPointer.Enqueue((startIndex, length));
-						
+
 						netEvent.Packet.Dispose();
 
 						break;
@@ -131,20 +135,20 @@ namespace NetCoreServer
 			}
 		}
 
-		private void SendReliable(byte[] data, byte channelID, Peer peer) {
+		private void SendReliable(byte[] data, byte channelID, Peer peer)
+		{
 			Packet packet = default(Packet);
 
 			packet.Create(data, data.Length, PacketFlags.Reliable | PacketFlags.NoAllocate); // Reliable Sequenced
 			peer.Send(channelID, ref packet);
-			Interlocked.Increment(ref _benchmarkData.MessagesClientSent);
 		}
 
-		private void SendUnreliable(byte[] data, byte channelID, Peer peer) {
+		private void SendUnreliable(byte[] data, byte channelID, Peer peer)
+		{
 			Packet packet = default(Packet);
 
 			packet.Create(data, data.Length, PacketFlags.None | PacketFlags.NoAllocate); // Unreliable Sequenced
 			peer.Send(channelID, ref packet);
-			Interlocked.Increment(ref _benchmarkData.MessagesClientSent);
 		}
 	}
 }

@@ -17,27 +17,36 @@ namespace Supyrb
 {
 	public class ExampleEchoClientUi : MonoBehaviour
 	{
-		[SerializeField] private ExampleEchoClient client = null;
+		[SerializeField]
+		private ExampleEchoClient client = null;
 
 		#region UiFields
 
-		[Header("Settings Input")] [SerializeField]
+		[Header("Settings Input")]
+		[SerializeField]
 		private InputField serverIpInput = null;
 
-		[SerializeField] private InputField serverPortInput = null;
+		[SerializeField]
+		private InputField serverPortInput = null;
 
-		[SerializeField] private Button udpConnectButton = null;
+		[SerializeField]
+		private Button udpConnectButton = null;
 
-		[SerializeField] private Button disconnectButton = null;
+		[SerializeField]
+		private Button disconnectButton = null;
 
-		[Header("Connection")] [SerializeField]
+		[Header("Connection")]
+		[SerializeField]
 		private InputField messageInputField = null;
 
-		[SerializeField] private Button sendMessageButton = null;
+		[SerializeField]
+		private Button sendMessageButton = null;
 
-		[SerializeField] private Text serverResponseText = null;
+		[SerializeField]
+		private Text serverResponseText = null;
 
-		[SerializeField] private Text stateInfoText = null;
+		[SerializeField]
+		private Text stateInfoText = null;
 
 		#endregion
 

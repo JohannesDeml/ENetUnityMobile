@@ -8,11 +8,7 @@
 // </author>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using NetCoreServer;
 using UnityEngine;
 
@@ -37,19 +33,11 @@ namespace Supyrb
 
 		#endregion
 
-		// Buffer will be used for sending and receiving to avoid creating garbage
-		private byte[] buffer;
-		private bool disconnecting;
-		private bool applicationQuitting;
-
 		private ENetClient _client;
-		private BenchmarkData _benchmarkData;
-		
+
 		private void Start()
 		{
-			disconnecting = false;
-			_benchmarkData = new BenchmarkData();
-			_client = new ENetClient(_benchmarkData);
+			_client = new ENetClient();
 		}
 
 		private void OnDestroy()
@@ -66,9 +54,9 @@ namespace Supyrb
 		[ContextMenu("Disconnect")]
 		public void Disconnect()
 		{
-			_client.Disconnect();	
+			_client.Disconnect();
 		}
-		
+
 		private void Update()
 		{
 			ui.UpdateState(_client);
@@ -87,7 +75,6 @@ namespace Supyrb
 				ui.AddResponseText(message);
 			}
 		}
-		
 
 		private void TriggerDisconnect()
 		{
@@ -117,7 +104,6 @@ namespace Supyrb
 		private void OnApplicationQuit()
 		{
 			_client.Dispose();
-			applicationQuitting = true;
 		}
 	}
 }
