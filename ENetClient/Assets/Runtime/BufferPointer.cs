@@ -8,16 +8,16 @@
 // </author>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace NetCoreServer
+namespace Supyrb
 {
 	public readonly struct BufferPointer
 	{
-		public readonly int Offset;
+		public readonly int Start;
 		public readonly int Length;
 
-		public BufferPointer(int offset, int length)
+		public BufferPointer(int start, int length)
 		{
-			Offset = offset;
+			Start = start;
 			Length = length;
 		}
 	}

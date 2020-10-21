@@ -9,7 +9,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Text;
-using NetCoreServer;
 using UnityEngine;
 
 namespace Supyrb
@@ -69,9 +68,9 @@ namespace Supyrb
 
 			while (client.BufferPointer.Count > 0)
 			{
-				(int start, int length) = client.BufferPointer.Dequeue();
+				var pointer = client.BufferPointer.Dequeue();
 
-				var message = Encoding.UTF8.GetString(client.Buffer, start, length);
+				var message = Encoding.UTF8.GetString(client.Buffer, pointer.Start, pointer.Length);
 				ui.AddResponseText(message);
 			}
 		}

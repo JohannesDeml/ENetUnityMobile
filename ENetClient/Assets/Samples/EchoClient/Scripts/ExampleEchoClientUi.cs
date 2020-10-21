@@ -9,7 +9,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Text;
-using NetCoreServer;
 using UnityEngine;
 using UnityEngine.UI;
 

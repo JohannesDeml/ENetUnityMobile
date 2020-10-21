@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UnityUdpClient.cs">
+// <copyright file="ENetClient.cs">
 //   Copyright (c) 2020 Johannes Deml. All rights reserved.
 // </copyright>
 // <author>
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using ENet;
 using UnityEngine;
 
-namespace NetCoreServer
+namespace Supyrb
 {
 	public class ENetClient
 	{
@@ -39,7 +39,7 @@ namespace NetCoreServer
 		/// Pointers on the buffer for the received messages.
 		/// Dequeue them regularly and completely to make space for the next messages
 		/// </summary>
-		public Queue<(int, int)> BufferPointer => bufferPointer;
+		public Queue<BufferPointer> BufferPointer => bufferPointer;
 
 		/// <summary>
 		/// True if the instance is disposed
@@ -50,14 +50,14 @@ namespace NetCoreServer
 		private Address address;
 		private Peer peer;
 		private readonly byte[] buffer;
-		private readonly Queue<(int Start, int Length)> bufferPointer;
+		private readonly Queue<BufferPointer> bufferPointer;
 		private Task listenTask;
 		private int tickRateClient = 60;
 
 		public ENetClient()
 		{
 			buffer = new byte[2000];
-			bufferPointer = new Queue<(int, int)>();
+			bufferPointer = new Queue<BufferPointer>();
 
 			ENet.Library.Initialize();
 			address = new Address();
@@ -126,7 +126,7 @@ namespace NetCoreServer
 						}
 
 						Marshal.Copy(netEvent.Packet.Data, buffer, startIndex, length);
-						bufferPointer.Enqueue((startIndex, length));
+						bufferPointer.Enqueue(new BufferPointer(startIndex, length));
 
 						netEvent.Packet.Dispose();
 
