@@ -33,11 +33,11 @@ namespace Supyrb
 
 		#endregion
 
-		private ENetClient _client;
+		private ENetClient client;
 
 		private void Start()
 		{
-			_client = new ENetClient();
+			client = new ENetClient();
 		}
 
 		private void OnDestroy()
@@ -48,30 +48,30 @@ namespace Supyrb
 		[ContextMenu("Connect")]
 		private void Connect()
 		{
-			_client.Connect(serverIp, serverPort);
+			client.Connect(serverIp, serverPort);
 		}
 
 		[ContextMenu("Disconnect")]
 		public void Disconnect()
 		{
-			_client.Disconnect();
+			client.Disconnect();
 		}
 
 		private void Update()
 		{
-			ui.UpdateState(_client);
-			bool connected = _client != null && _client.IsConnected;
+			ui.UpdateState(client);
+			bool connected = client != null && client.IsConnected;
 
-			if (!connected || _client.BufferPointer.Count == 0)
+			if (!connected || client.BufferPointer.Count == 0)
 			{
 				return;
 			}
 
-			while (_client.BufferPointer.Count > 0)
+			while (client.BufferPointer.Count > 0)
 			{
-				(int start, int length) = _client.BufferPointer.Dequeue();
+				(int start, int length) = client.BufferPointer.Dequeue();
 
-				var message = Encoding.UTF8.GetString(_client.Buffer, start, length);
+				var message = Encoding.UTF8.GetString(client.Buffer, start, length);
 				ui.AddResponseText(message);
 			}
 		}
@@ -97,13 +97,13 @@ namespace Supyrb
 		{
 			for (int i = 0; i < 1 + repeatMessage; i++)
 			{
-				_client.Send(message);
+				client.Send(message);
 			}
 		}
 
 		private void OnApplicationQuit()
 		{
-			_client.Dispose();
+			client.Dispose();
 		}
 	}
 }

@@ -23,81 +23,81 @@ namespace NetCoreServer
 		/// </summary>
 		public bool IsRunning;
 
-		public bool IsConnected => _peer.State == PeerState.Connected;
+		public bool IsConnected => peer.State == PeerState.Connected;
 
 		/// <summary>
 		/// Address used to connect to the server
 		/// </summary>
-		public Address Address => _address;
+		public Address Address => address;
 
 		/// <summary>
 		/// Buffer for all received messages
 		/// </summary>
-		public byte[] Buffer => _buffer;
+		public byte[] Buffer => buffer;
 
 		/// <summary>
 		/// Pointers on the buffer for the received messages.
 		/// Dequeue them regularly and completely to make space for the next messages
 		/// </summary>
-		public Queue<(int, int)> BufferPointer => _bufferPointer;
+		public Queue<(int, int)> BufferPointer => bufferPointer;
 
 		/// <summary>
 		/// True if the instance is disposed
 		/// </summary>
 		public bool IsDisposed { get; private set; }
 
-		private readonly Host _host;
-		private Address _address;
-		private Peer _peer;
-		private readonly byte[] _buffer;
-		private readonly Queue<(int Start, int Length)> _bufferPointer;
-		private Task _listenTask;
-		private int _tickRateClient = 60;
+		private readonly Host host;
+		private Address address;
+		private Peer peer;
+		private readonly byte[] buffer;
+		private readonly Queue<(int Start, int Length)> bufferPointer;
+		private Task listenTask;
+		private int tickRateClient = 60;
 
 		public ENetClient()
 		{
-			_buffer = new byte[2000];
-			_bufferPointer = new Queue<(int, int)>();
+			buffer = new byte[2000];
+			bufferPointer = new Queue<(int, int)>();
 
 			ENet.Library.Initialize();
-			_address = new Address();
-			_host = new Host();
-			_host.Create();
+			address = new Address();
+			host = new Host();
+			host.Create();
 			IsDisposed = false;
 		}
 
 		public void Connect(string address, int port)
 		{
 			IsRunning = true;
-			_address.SetHost(address);
-			_address.Port = (ushort) port;
-			_peer = _host.Connect(_address, 4);
+			this.address.SetHost(address);
+			this.address.Port = (ushort) port;
+			peer = host.Connect(this.address, 4);
 
-			_listenTask = Task.Factory.StartNew(Listen, TaskCreationOptions.LongRunning);
+			listenTask = Task.Factory.StartNew(Listen, TaskCreationOptions.LongRunning);
 			IsDisposed = false;
 		}
 
 		public void Send(byte[] message)
 		{
-			SendUnreliable(message, 0, _peer);
+			SendUnreliable(message, 0, peer);
 		}
 
 		public void Disconnect()
 		{
-			_peer.DisconnectNow(0);
+			peer.DisconnectNow(0);
 			IsRunning = false;
 		}
 
 		public async void Dispose()
 		{
-			while (!_listenTask.IsCompleted)
+			while (!listenTask.IsCompleted)
 			{
 				await Task.Delay(10);
 			}
 
-			_listenTask.Dispose();
-			_host.Flush();
-			_host.Dispose();
+			listenTask.Dispose();
+			host.Flush();
+			host.Dispose();
 			ENet.Library.Deinitialize();
 			IsDisposed = true;
 		}
@@ -106,7 +106,7 @@ namespace NetCoreServer
 		{
 			while (IsRunning)
 			{
-				_host.Service(1000 / _tickRateClient, out ENet.Event netEvent);
+				host.Service(1000 / tickRateClient, out ENet.Event netEvent);
 
 				switch (netEvent.Type)
 				{
@@ -120,13 +120,13 @@ namespace NetCoreServer
 					case ENet.EventType.Receive:
 						var startIndex = 0;
 						var length = netEvent.Packet.Length;
-						if (_bufferPointer.Count > 0)
+						if (bufferPointer.Count > 0)
 						{
-							startIndex = _bufferPointer.Peek().Start;
+							startIndex = bufferPointer.Peek().Start;
 						}
 
-						Marshal.Copy(netEvent.Packet.Data, _buffer, startIndex, length);
-						_bufferPointer.Enqueue((startIndex, length));
+						Marshal.Copy(netEvent.Packet.Data, buffer, startIndex, length);
+						bufferPointer.Enqueue((startIndex, length));
 
 						netEvent.Packet.Dispose();
 
