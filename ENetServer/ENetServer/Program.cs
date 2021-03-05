@@ -69,6 +69,7 @@ namespace ENetServer
                 _server.Flush();
             }
 
+            Console.WriteLine($"Server stopped");
             ENet.Library.Deinitialize();
         }
 

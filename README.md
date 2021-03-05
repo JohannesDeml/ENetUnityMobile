@@ -1,7 +1,7 @@
 # ENet Unity Mobile Setup
 
 *Bootstrap setup for a client server architecture*  
-[![Unity 2020.1](https://img.shields.io/badge/unity-2020.1-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
+[![Unity 2020.2](https://img.shields.io/badge/unity-2020.2-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![.NET 5.0](https://img.shields.io/badge/.NET-5.0-blueviolet.svg)](https://dotnet.microsoft.com/download/dotnet/5.0) [![Release Date](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
 
 ![Live Preview](./Docs/live-preview.gif)
 
@@ -21,9 +21,9 @@ The server application is built with .Net Core and therefore will run on Windows
 
 ### Libraries
 
-* [ENet-CSharp 2.4.3](https://github.com/nxrighthere/ENet-CSharp)
-* Unity 2020.1.9f1
-* .Net Core 3.1
+* [ENet-CSharp 2.4.6](https://github.com/nxrighthere/ENet-CSharp)
+* Unity 2020.2.7f1, but should work fine in almost any version
+* .Net 5
 
 ## Run Project
 
@@ -39,13 +39,13 @@ The server listens to Port 3333 and can be aborted by pressing any key.
 
 ![Commandline Server](./Docs/unity-client.png)
 
-Either get the build for Android or Windows from the [release section](../../releases) or open the project in Unity and run it (Make sure you started the server). Find out the ip of your server (127.0.0.1 if it is on the same machine), and click connect.
+Either get the build for Android or Windows from the [release page](../../releases) or open the project in Unity and run it (Make sure you started the server). Find out the ip of your server (127.0.0.1 if it is on the same machine), and click connect.
 
 When connected successfully, you can enter messages in the box next to the send button. The messages will be broadcasted to all other clients that are online at that time.
 
 ## Build Libraries
 
-The libraries for android and iOS are already built for this repo, you can find them [here](../../tree/master/ENetClient/Assets/ENet/Plugins).  
+The easiest way is to get the built libraries from the [release page](../../releases).  
 If you want to build them yourself (or for a newer ENet version), take a look at the instructions below.
 
 ### Android
