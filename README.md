@@ -48,7 +48,7 @@ When connected successfully, you can enter messages in the box next to the send 
 The libraries for android and iOS are already built for this repo, you can find them [here](../../tree/master/ENetClient/Assets/ENet/Plugins).  
 If you want to build them yourself (or for a newer ENet version), take a look at the instructions below.
 
-#### Android
+### Android
 
 1. Download NDK (Or search for the version you use inside unity)
 2. Add the build folder inside to your path environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
@@ -58,7 +58,7 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 6. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
 7. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
 
-#### iOS
+### iOS
 
 1. Install XCode
 2. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
@@ -66,6 +66,18 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 4. Run `sh build-ios.sh`
 5. Copy `libenet.a` to your unity project to `Assets/Enet/Plugins/iOS/libenet.a`
 6. Set `libenet.a` to iOS only with CPU ARM64
+
+### Windows
+
+1. Install CMake & Visual Studio with C++
+2. Navigate to `ENet-CSharp/Source/Native`
+3. Create a folder called `build` and open a terminal there
+4. run `cmake ..\ -DENET_SHARED=true` - this should fill your build folder with a visual studio project.
+   1. Alternatively you can also use the cmake GUI to set up your project.
+      ![Screenschot Cmake](./Docs/cmake-gui.png)
+5. Open your sln file and build with MinSizeRel
+6. Copy the generated dll from `ENet-CSharp/Source/Native/build/MinSizeRel/enet.dll` to your unity project to `Assets/Enet/Plugins/x86_64`
+7. Set `enet.dll` for Editor and Standalone with Windows x64
 
 ## License
 
