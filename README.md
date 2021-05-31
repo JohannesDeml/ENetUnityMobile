@@ -50,13 +50,14 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 
 ### Android
 
-1. Download NDK (Or search for the version you use inside unity)
-2. Add the build folder inside to your path environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
-3. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
-4. Navigate to `ENet-CSharp/Source/Native`
-5. Run `ndk-build` in that location.
-6. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
-7. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
+1. Install [NDK](https://developer.android.com/ndk/downloads) (Or search for the version you use inside unity and add it to `PATH`) 
+2. Install make - On Windows use [Cygwin](https://www.cygwin.com/) 
+3. Add the build folder inside to your path environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
+4. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
+5. Navigate to `ENet-CSharp/Source/Native`
+6. Run `ndk-build` in that location.
+7. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
+8. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
 
 ### iOS
 
@@ -69,7 +70,7 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 
 ### Windows
 
-1. Install CMake & Visual Studio with C++
+1. Install [CMake](https://cmake.org/download/) & [Visual Studio](https://visualstudio.microsoft.com/downloads/) with C++
 2. Navigate to `ENet-CSharp/Source/Native`
 3. Create a folder called `build` and open a terminal there
 4. run `cmake ..\ -DENET_SHARED=true` - this should fill your build folder with a visual studio project.
