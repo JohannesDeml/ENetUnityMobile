@@ -1,7 +1,7 @@
 # ENet Unity Mobile Setup
 
 *Bootstrap setup for a client server architecture*  
-[![Unity 2020.2](https://img.shields.io/badge/unity-2020.2-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![.NET 5.0](https://img.shields.io/badge/.NET-5.0-blueviolet.svg)](https://dotnet.microsoft.com/download/dotnet/5.0) [![Release Date](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
+[![Unity 2021.1](https://img.shields.io/badge/unity-2021.1-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![.NET 5.0](https://img.shields.io/badge/.NET-5.0-blueviolet.svg)](https://dotnet.microsoft.com/download/dotnet/5.0) [![Release Date](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
 
 ![Live Preview](./Docs/live-preview.gif)
 
