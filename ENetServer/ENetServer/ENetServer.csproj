@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ENet-CSharp" Version="2.4.6" />
+      <PackageReference Include="ENet-CSharp" Version="2.4.7" />
     </ItemGroup>
 
 </Project>
