@@ -21,9 +21,9 @@ The server application is built with .Net Core and therefore will run on Windows
 
 ### Libraries
 
-* [ENet-CSharp 2.4.6](https://github.com/nxrighthere/ENet-CSharp)
-* Unity 2020.2.7f1, but should work fine in almost any version
-* .Net 5
+* [ENet-CSharp 2.4.7](https://github.com/nxrighthere/ENet-CSharp)
+* Unity 2021.1.9f1, but should work fine in almost any version
+* .Net 5 Server
 
 ## Run Project
 
