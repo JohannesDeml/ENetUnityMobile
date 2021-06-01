@@ -50,14 +50,15 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 
 ### Android
 
-1. Install [NDK](https://developer.android.com/ndk/downloads) (Or search for the version you use inside unity and add it to `PATH`) 
+1. Install [NDK](https://developer.android.com/ndk/downloads) (Or search for the version you use inside unity) 
 2. Install make - On Windows use [Cygwin](https://www.cygwin.com/) 
-3. Add the build folder inside to your path environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
+3. Add the ndk build folder to your `path` environment variables e.g `C:/Data/SDKs/android-ndk-r19c/build`
 4. Clone `git@github.com:nxrighthere/ENet-CSharp.git`
 5. Navigate to `ENet-CSharp/Source/Native`
-6. Run `ndk-build` in that location.
-7. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
-8. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
+6. If you ran the script before, you might want to delete the obj folder inside Native first, to be sure the project is regenerated
+7. Run `ndk-build` in the Native folder.
+8. Copy the folders `arm64-v8a`, `armeabi-v7a` and `x86` from the generated libs folder to your unity project to `Assets/Enet/Plugins/Android/`.
+9. Set `arm64-v8a` to ARM64, `armeabi-v7a` to ARMv7 and `x86` to x86.
 
 ### iOS
 
