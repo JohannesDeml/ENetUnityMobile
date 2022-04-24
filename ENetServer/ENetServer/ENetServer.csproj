@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ENet-CSharp" Version="2.4.7" />
+      <PackageReference Include="ENet-CSharp" Version="2.4.8" />
     </ItemGroup>
 
 </Project>

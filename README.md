@@ -1,7 +1,7 @@
 # ENet Unity Mobile Setup
 
 *Bootstrap setup for a client server architecture*  
-[![Unity 2021.1](https://img.shields.io/badge/unity-2021.1-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![.NET 5.0](https://img.shields.io/badge/.NET-5.0-blueviolet.svg)](https://dotnet.microsoft.com/download/dotnet/5.0) [![Release Date](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
+[![Unity 2021.3](https://img.shields.io/badge/unity-2021.3-green.svg?logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive) [![.NET 6.0](https://img.shields.io/badge/.NET-6.0-blueviolet.svg)](https://dotnet.microsoft.com/download/dotnet/6.0) [![Release Date](https://img.shields.io/github/release-date/JohannesDeml/ENetUnityMobile.svg)](../../releases)
 
 ![Live Preview](./Docs/live-preview.gif)
 
@@ -21,9 +21,9 @@ The server application is built with .Net Core and therefore will run on Windows
 
 ### Libraries
 
-* [ENet-CSharp 2.4.7](https://github.com/nxrighthere/ENet-CSharp)
-* Unity 2021.1.9f1, but should work fine in almost any version
-* .Net 5 Server
+* [ENet-CSharp 2.4.8](https://github.com/nxrighthere/ENet-CSharp)
+* Unity 2021.3.0f1, but should work fine in almost any version
+* .Net 6 Server
 
 ## Run Project
 
