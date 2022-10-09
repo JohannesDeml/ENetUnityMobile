@@ -8,6 +8,7 @@
 // </author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -45,6 +46,8 @@ namespace Supyrb
 		/// True if the instance is disposed
 		/// </summary>
 		public bool IsDisposed { get; private set; }
+		
+		public Version EnetVersion { get; private set; }
 
 		private readonly Host host;
 		private Address address;
@@ -64,6 +67,11 @@ namespace Supyrb
 			host = new Host();
 			host.Create();
 			IsDisposed = false;
+
+			int major = (int)(ENet.Library.version >> 16 & 0xFFu);
+			int minor = (int)(ENet.Library.version >> 8 & 0xFFu);
+			int build = (int)(ENet.Library.version & 0xFFu);
+			EnetVersion = new Version(major, minor, build);
 		}
 
 		public void Connect(string address, int port)
@@ -84,12 +92,20 @@ namespace Supyrb
 
 		public void Disconnect()
 		{
+			if (!IsRunning)
+			{
+				return;
+			}
 			peer.DisconnectNow(0);
 			IsRunning = false;
 		}
 
 		public async void Dispose()
 		{
+			if (!IsRunning || IsDisposed)
+			{
+				return;
+			}
 			while (!listenTask.IsCompleted)
 			{
 				await Task.Delay(10);
