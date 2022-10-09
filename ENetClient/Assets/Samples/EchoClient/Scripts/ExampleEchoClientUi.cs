@@ -73,7 +73,7 @@ namespace Supyrb
 			}
 
 			var text = $"Server ip: {client.Address.GetHost()}, Server port: {client.Address.Port}\n" +
-			           $"IsConnected: {client.IsConnected}\n ";
+			           $"IsConnected: {client.IsConnected}\n ENet version: {client.EnetVersion}\n";
 			stateInfoText.text = text;
 		}
 
