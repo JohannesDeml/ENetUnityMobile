@@ -9,20 +9,20 @@
 
 A multiplayer setup with a unity client and a .Net Core server. The application is a very simple chat server, that shows how the clients can communicate with the server and vice versa. Other than being a small tech demo, the repo explains how to compile ENet for android and iOS and provides built libraries for those platforms to kickstart your project.
 
-| Client platform support | 32 Bit | 64 bit |
-| ----------------------- | :----: | :----: |
-| Android                 |   ✔️    |   ✔️    |
-| iOS                     |   ➖    |   ✔️    |
-| Windows                 |   ❌    |   ✔️    |
-| Mac                     |   ❌    |   ✔️    |
-| Linux                   |   ❌    |   ✔️    |
+| Client platform support | 32 Bit | 64 bit | ARM  |
+| ----------------------- | :----: | :----: | :--: |
+| Android                 |   ✔️    |   ✔️    |  ➖   |
+| iOS                     |   ➖    |   ✔️    |  ➖   |
+| Windows                 |   ❌    |   ✔️    |  ❌   |
+| MacOS                   |   ❌    |   ✔️    |  ✔️   |
+| Linux                   |   ❌    |   ✔️    |  ❌   |
 
 The server application is built with .Net Core and therefore will run on Windows, Mac or Linux.
 
 ### Libraries
 
 * [ENet-CSharp 2.4.8](https://github.com/nxrighthere/ENet-CSharp)
-* Unity 2021.3.0f1, but should work fine in almost any version
+* Unity 2021.3.11f1, but should work fine in almost any version
 * .Net 6 Server
 
 ## Run Project
@@ -71,7 +71,7 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 
 ### Windows
 
-1. Install [CMake](https://cmake.org/download/) & [Visual Studio](https://visualstudio.microsoft.com/downloads/) with C++
+1. Install [CMake](https://github.com/Kitware/CMake/releases/latest) & [Visual Studio](https://visualstudio.microsoft.com/downloads/) with C++
 2. Navigate to `ENet-CSharp/Source/Native`
 3. Create a folder called `build` and open a terminal there
 4. run `cmake ..\ -DENET_SHARED=true` - this should fill your build folder with a visual studio project.
@@ -80,6 +80,17 @@ If you want to build them yourself (or for a newer ENet version), take a look at
 5. Open your sln file and build with MinSizeRel
 6. Copy the generated dll from `ENet-CSharp/Source/Native/build/MinSizeRel/enet.dll` to your unity project to `Assets/Enet/Plugins/x86_64`
 7. Set `enet.dll` for Editor and Standalone with Windows x64
+
+### MacOS
+1. Install [CMake](https://github.com/Kitware/CMake/releases/latest) and XCode
+2. Navigate to `ENet-CSharp/Source/Native`
+3. Create a folder called `build`
+4. Run CMake and select the native and build folder accordingly. Then click Configure and be sure to use the Generator Xcode. After Generating the button Open Project should be clickable (otherwise check the logs inside the build folder to find out what went wrong)![Screenschot Cmake](./Docs/cmake-gui-macos.png)
+5. In XCode Edit the schema to build for Release or MinSizeRel
+6. Build the file, you should find your build here: `ENet-CSharp/Source/Native/build/Release/libenet.dylib`
+7. I merged this ARM build with the x64 build through `lipo -create ./libenet.bundle ./libenet.dylib -output merged/libenet.dylib`
+8. Add this library to your Plugins folder and be sure to select all CPUs
+
 
 ## License
 

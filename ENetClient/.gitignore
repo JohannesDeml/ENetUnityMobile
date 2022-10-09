@@ -12,6 +12,7 @@
 /ExportedObj/**
 /obj
 /.vs/**
+/.vscode/**
 *.svd
 *.userprefs
 *.csproj
