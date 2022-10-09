@@ -92,12 +92,20 @@ namespace Supyrb
 
 		public void Disconnect()
 		{
+			if (!IsRunning)
+			{
+				return;
+			}
 			peer.DisconnectNow(0);
 			IsRunning = false;
 		}
 
 		public async void Dispose()
 		{
+			if (!IsRunning || IsDisposed)
+			{
+				return;
+			}
 			while (!listenTask.IsCompleted)
 			{
 				await Task.Delay(10);
