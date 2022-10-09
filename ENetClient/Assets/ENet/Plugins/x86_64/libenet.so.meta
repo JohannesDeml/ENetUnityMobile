@@ -92,7 +92,7 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: x86
+        CPU: None
   - first:
       Standalone: Win
     second:
@@ -104,12 +104,7 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        CPU: None
-  - first:
-      WebGL: WebGL
-    second:
-      enabled: 0
-      settings: {}
+        CPU: AnyCPU
   - first:
       iPhone: iOS
     second:
